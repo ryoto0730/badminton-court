@@ -3,8 +3,14 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
+type Event = {
+  id: number;
+  title: string;
+  date: string;
+};
+
 export default function Home() {
-  const [events, setEvents] = useState<any[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const [message, setMessage] = useState("");
 
   // イベント一覧を読み込む
@@ -23,7 +29,7 @@ export default function Home() {
   // 参加登録
   const handleJoin = async (eventId: number) => {
     // 👇 ここは仮のユーザー情報（後でLINEログインに置き換える）
-    const userId = "U123456"; 
+    const userId = "U123456";
     const displayName = "山田太郎";
 
     const { error } = await supabase.from("event_attendees").insert({
